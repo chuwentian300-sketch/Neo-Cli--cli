@@ -1,5 +1,8 @@
 # NEO-CLI
 
+[![npm](https://img.shields.io/npm/v/neo-cli-agent)](https://www.npmjs.com/package/neo-cli-agent)
+[![license](https://img.shields.io/npm/l/neo-cli-agent)](./LICENSE)
+
 多 API 缓存优先的智能编码代理，支持自动模型切换。
 
 ## 功能特性
@@ -14,18 +17,22 @@
 
 ## 快速开始
 
+### 一键安装（推荐）
+
 ```bash
-# 安装依赖
+npm install -g neo-cli-agent
+neo-agent
+```
+
+### 从源码安装
+
+```bash
+git clone https://github.com/chuwentian300-sketch/Neo-Cli--cli.git
+cd Neo-Cli--cli
 npm install
-
-# 编译
 npm run build
-
-# 初始化配置
-npx neo init
-
-# 启动编码模式
-npx neo code
+npm link
+neo-agent
 ```
 
 ## 配置说明
@@ -44,6 +51,12 @@ npx neo code
     "low": { "provider": "deepseek", "id": "deepseek-v4-flash" }
   }
 }
+```
+
+初始化配置：
+
+```bash
+neo-agent init
 ```
 
 支持通过 `/api` 命令在界面内交互式配置，支持预设模型商：
