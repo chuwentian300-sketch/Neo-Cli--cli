@@ -1,12 +1,12 @@
 {
   "name": "neo-cli-agent",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Multi-API cache-first coding agent with auto model switching",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "neo-agent": "dist/cli/index.js"
+    "neo": "dist/cli/index.js"
   },
   "scripts": {
     "build": "tsup",
