@@ -199,12 +199,10 @@ class Screen {
       }
     }
 
-    // Command palette (above input box, occupies status + gap rows)
-    {
+    // Command palette (above input box, only when active)
+    if (this.commandMode && this.filteredCommands.length > 0) {
       const maxPalette = 6
-      const total = this.commandMode ? this.filteredCommands.length : 0
-      const maxShow = Math.min(maxPalette, total)
-      // Palette rows: from (statusRow - maxPalette + 1) to statusRow
+      const maxShow = Math.min(maxPalette, this.filteredCommands.length)
       const paletteStartRow = this.statusRow - maxPalette + 1
       for (let i = 0; i < maxPalette; i++) {
         moveTo(paletteStartRow + i, 1); eraseLine()
