@@ -50,6 +50,7 @@ export class CacheFirstLoop {
   private config: AppConfig
   private tools: ToolDef[]
   private toolRegistry: ToolRegistry
+  private mode: 'execute' | 'ask' = 'execute'
   private turnCount = 0
   private hasActivePlan = false
   private totalCost = 0
@@ -93,6 +94,10 @@ export class CacheFirstLoop {
     return adapter
   }
 
+  setMode(mode: 'execute' | 'ask') {
+    this.mode = mode
+  }
+
   private async selectModel(userMessage: string): Promise<{ adapter: ApiAdapter; model: ModelConfig; reason: string }> {
     const ctx: ConversationContext = {
       turnCount: this.turnCount,
@@ -133,7 +138,8 @@ export class CacheFirstLoop {
       }
 
       const messages = [...this.prefix.toMessages(), ...this.healOnSend()]
-      const callOpts = { model: model.id, tools: this.tools, maxTokens: this.config.maxTokens, stream: true }
+      const activeTools = this.mode === 'ask' ? [] : this.tools
+      const callOpts = { model: model.id, tools: activeTools, maxTokens: this.config.maxTokens, stream: true }
 
       let accumulatedText = ''
       let accumulatedReasoning = ''

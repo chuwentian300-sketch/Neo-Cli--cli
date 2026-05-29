@@ -99,7 +99,7 @@ class Screen {
   history: string[] = []
   historyIdx = -1        // -1 = current input, 0..n = history
   isHigh = false
-  mode: 'auto' | 'manual' = 'auto'
+  mode: 'execute' | 'ask' = 'execute'
   processing = false
   thinking = false
   spinIdx = 0
@@ -161,7 +161,7 @@ class Screen {
     const R = '\x1b[0m', D = '\x1b[2m', BD = '\x1b[1m'
     const G = '\x1b[38;2;80;200;120m'
     const C = '\x1b[38;2;0;200;200m'
-    const tag = ` ${this.mode === 'auto' ? '自动' : '手动'} `
+    const tag = ` ${this.mode === 'execute' ? '执行' : '询问'} `
 
     hideCur()
 
@@ -636,8 +636,8 @@ async function interactiveMode(config: AppConfig, initialPrompt?: string): Promi
 
     const elapsed = scr.stopSpin()
 
-    if (scr.mode === 'manual') {
-      scr.addLine(chalk.hex('#f09632')('  [手动] 以上操作等待确认'))
+    if (scr.mode === 'ask') {
+      scr.addLine(chalk.hex('#f09632')('  [询问] 仅回答问题，不修改代码'))
     }
 
     // 构建统计信息
@@ -817,7 +817,8 @@ async function interactiveMode(config: AppConfig, initialPrompt?: string): Promi
 
     // TAB / SHIFT+TAB
     if (code === 0x09 || (code === 0x1b && key.length >= 3 && key.slice(1, 3) === '[Z')) {
-      scr.mode = scr.mode === 'auto' ? 'manual' : 'auto'
+      scr.mode = scr.mode === 'execute' ? 'ask' : 'execute'
+      loop.setMode(scr.mode)
       scr.render()
       return
     }
@@ -964,8 +965,9 @@ async function interactiveMode(config: AppConfig, initialPrompt?: string): Promi
             return
           }
           case 'mode':
-            scr.mode = scr.mode === 'auto' ? 'manual' : 'auto'
-            scr.addLine(chalk.dim(`  模式已切换为: ${scr.mode === 'auto' ? '自动' : '手动'}`))
+            scr.mode = scr.mode === 'execute' ? 'ask' : 'execute'
+            loop.setMode(scr.mode)
+            scr.addLine(chalk.dim(`  模式已切换为: ${scr.mode === 'execute' ? '执行' : '询问'}`))
             scr.addLine('')
             scr.render()
             return
