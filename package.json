@@ -1,13 +1,12 @@
 {
-  "name": "neo-cli",
-  "version": "0.1.0",
+  "name": "neo-cli-agent",
+  "version": "0.1.1",
   "description": "Multi-API cache-first coding agent with auto model switching",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "neo": "./dist/cli/index.js",
-    "neo-cli": "./dist/cli/index.js"
+    "neo-agent": "dist/cli/index.js"
   },
   "scripts": {
     "build": "tsup",
@@ -26,10 +25,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chuwentian300-sketch/Neo-Cli--cli.git"
+    "url": "git+https://github.com/chuwentian300-sketch/Neo-Cli--cli.git"
   },
   "homepage": "https://github.com/chuwentian300-sketch/Neo-Cli--cli",
-  "keywords": ["cli", "agent", "coding", "ai", "deepseek", "openai", "claude", "cache"],
+  "keywords": [
+    "cli",
+    "agent",
+    "coding",
+    "ai",
+    "deepseek",
+    "openai",
+    "claude",
+    "cache"
+  ],
   "license": "MIT",
   "dependencies": {
     "commander": "^12.1.0",
